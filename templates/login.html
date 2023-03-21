@@ -20,7 +20,7 @@
 			</div>
 		</div>
 
-        <form action="/login" method="post" style="margin: auto">
+        <form action="/login" method="POST" style="margin: auto">
             <div class="row" style="margin-top: 15px;">
                 <div class="col-12 center">
                     <input type="text" placeholder="Email address" name="email" required>
@@ -31,13 +31,14 @@
                     <input type="password" placeholder="Password" name="password" required>
                 </div>
             </div>
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-12 center">
+                    <button class="continue" type="submit" id="submit-button">Continue</button>
+                </div>
+		    </div>
         </form>
 
-		<div class="row" style="margin-top: 20px;">
-            <div class="col-12 center">
-                <button class="continue" type="submit" id="submit-button">Continue</button>
-            </div>
-		</div>
+
 
         <script>
             // Get the button element
