@@ -46,8 +46,6 @@ def login():
     password = hash_passwords.hash_password(password)
 
     if not validate(email, password):
-        # TODO add thing that says login failed
-        # TODO clear input fields
         login_success = 0
         return render_template('login.html', login_success=login_success)
 
