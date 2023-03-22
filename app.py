@@ -37,13 +37,23 @@ def login():
     # get email and password from form
     email = request.form['email']
     password = request.form['password']
+
+    if not email or not password:
+        login_success = 0
+        return render_template('login.html', login_success=login_success)
+
     # hash the password to compare to database
     password = hash_passwords.hash_password(password)
 
     if not validate(email, password):
-        return redirect('/')
+        # TODO add thing that says login failed
+        # TODO clear input fields
+        login_success = 0
+        return render_template('login.html', login_success=login_success)
 
-    return render_template("homepage.html")
+    else:
+        login_success = 1
+        return render_template("homepage.html", login_success=login_success)
 
 
 if __name__ == '__main__':
