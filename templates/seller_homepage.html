@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Webpage</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <!-- Navbar --->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" id="title">LionAuction</a>
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Help</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Categories
+                </a>
+                  <!-- Dropdown menu -->
+                  <div class="dropdown-menu w-100 mt-0" aria-labelledby="navbarDropdown" style="
+                                  border-top-left-radius: 0;
+                                  border-top-right-radius: 0;
+                                  min-width: 800px;
+                                ">
+                    <div class="container">
+                          <div class="row my-4">
+                            <div class="col list-group-flush">
+                                {% for category in category_result[:(category_result|length)//2] %}
+                                    <a class="list-group-item list-group-item-action"
+                                       href="/category?name={{ category }}">{{ category }}</a>
+                                {% endfor %}
+                            </div>
+                            <div class="col list-group-flush">
+                                {% for category in category_result[(category_result|length)//2:] %}
+                                    <a class="list-group-item list-group-item-action"
+                                       href="/category?name={{ category }}">{{ category }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                      </div>
+
+                  </div>
+              </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/?name=my_listings">My Listings</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('auction_form') }}" class="nav-link">Create an Auction</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/add_cred_card" class="nav-link">Add Credit Card</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link">Logout</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <!--- Personal Info -->
+    {% if len_seller_info == 13 %}
+        <div class="container">
+            <div class="table-responsive">
+                <h2>Personal Info</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Email</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Balance</th>
+                            <th scope="col">Credit Card Info</th>
+                        </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                        {% for attribute in seller_info[:5] %}
+                            <td>{{ attribute }}</td>
+                        {% endfor %}
+                  </tr>
+                  </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Age</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Major</th>
+                            <th scope="col">Street Number</th>
+                            <th scope="col">Street Name</th>
+                            <th scope="col">Zipcode</th>
+                            <th scope="col">City</th>
+                            <th scope="col">State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                            {% for attribute in seller_info[5:] %}
+                                <td>{{ attribute }}</td>
+                            {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
+    <!--- Seller Info -->
+    {% if len_seller_info == 4 %}
+        <div class="container">
+            <div class="table-responsive">
+                <h2>Seller Info</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Email</th>
+                            <th scope="col">Business Name</th>
+                            <th scope="col">Balance</th>
+                            <th scope="col">Customer Service Number</th>
+                        </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                        {% for attribute in seller_info %}
+                            <td>{{ attribute }}</td>
+                        {% endfor %}
+                  </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- My Listings -->
+    <div class="container">
+            <div class="table-responsive" style="overflow-x: auto; min-width: 1200px;">
+                <h2>My Listings</h2>
+                <table class="table table-striped w-auto">
+                    <thead>
+                        <tr>
+                            <th scope="col">Seller Email</th>
+                            <th scope="col">Listing ID</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Auction Title</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Reserve Price</th>
+                            <th scope="col">Max Bids</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Remaining Bids</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <!-- display all auctions by the seller --->
+                        {% for listing in seller_listings %}
+                          <tr>
+                          <!-- display auction details -->
+                              {% for attribute in listing %}
+                                  <td>{{ attribute }}</td>
+                              {% endfor %}
+                            <td>
+                                <!--Remaining Bids -->
+                            </td>
+                            <td>
+                              {% if listing[9] == 2 %}
+                                  <!-- disable if auction is sold -->
+                                <button class="btn btn-secondary btn-sm" disabled>Edit</button>
+                              {% else %}
+                                  <!-- pass auction id to edit form -->
+                                <a href="/edit_auction?id={{ listing[1] }}" class="btn btn-primary btn-sm">Edit</a>
+                              {% endif %}
+                            </td>
+                          </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</html>

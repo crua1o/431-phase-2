@@ -11,47 +11,105 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row center" style="margin-top: 48px;">
-			<img src="/static/Survey_Corps_Logo.jpg" alt="Survey Corps" style="width:50px; height:50px;">
-		</div>
-		<div class="row" style="margin-top: 80px;">
-			<div class="center" style="margin: auto">
-				<h1 class="title">Welcome back</h1>
-			</div>
-		</div>
+<!--- Login Form -->
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+          <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+              <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                <div class="card-body p-4 p-md-5">
 
-        <form action="/login" method="POST" style="margin: auto">
-            <div class="row" style="margin-top: 15px;">
-                <div class="col-12 center">
-                    <input type="text" placeholder="Email address" name="email" id="email" required>
+                    <div class="row center" style="margin-top: 48px;">
+                        <img src="/static/Survey_Corps_Logo.jpg" alt="Survey Corps" style="width:50px; height:50px;">
+                    </div>
+                    <div class="row" style="margin-top: 80px;">
+                        <div class="center" style="margin: auto">
+                            <h1 class="title">Welcome back</h1>
+                        </div>
+                    </div>
+
+                    <form action="/login" method="POST" style="margin: auto">
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+
+                                <div class="form-outline">
+                                    <input type="text" id="email" class="form-control form-control-lg" name="email" required/>
+                                    <label class="form-label" for="email">Email</label>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+
+                                <div class="form-outline">
+                                    <input type="password" id="password" class="form-control form-control-lg" name="password" required/>
+                                    <label class="form-label" for="password">Password</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <!-- Role -->
+                            <div class="mb-4">
+                                <h6 class="mb-2 pb-1">Role: </h6>
+
+                                <!-- Radio Buttons -->
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="BidderRole"
+                                    value="Bidder" checked />
+                                  <label class="form-check-label" for="Radio1">Bidder</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SellerRole"
+                                    value="Seller" />
+                                  <label class="form-check-label" for="Radio2">Seller</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="HelpdeskRole"
+                                    value="Helpdesk" />
+                                  <label class="form-check-label" for="Radio3">Helpdesk</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-12 center">
+                                <button class="continue" type="submit" id="submit-button">Continue</button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-12 center">
+                                <a class="btn-primary" href="/signup">Register</a>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row center" style="margin-top: 20px">
+                        {% if login_success == 0 %}
+                            <div class="fail">
+                                <p id="login-fail">Login failed</p>
+                                <p id="login-fail-2">Invalid credentials - try another email/password.</p>
+                            </div>
+                        {% else %}
+                            <h1></h1>
+                        {% endif %}
+                    </div>
+
                 </div>
-            </div>
-            <div class="row" style="margin-top: 15px;">
-                <div class="col-12 center">
-                    <input type="password" placeholder="Password" name="password" id="password" required>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 20px;">
-                <div class="col-12 center">
-                    <button class="continue" type="submit" id="submit-button">Continue</button>
-                </div>
-		    </div>
-        </form>
-        <div class="row center" style="margin-top: 20px">
-            {% if login_success == 1 %}
-                <h3>Login Successful</h3>
-            {% elif login_success == 0 %}
-                <div class="fail">
-                    <p id="login-fail">Login failed</p>
-                    <p id="login-fail-2">Invalid credentials - try another email/password.</p>
-                </div>
-            {% else %}
-                <h1></h1>
-            {% endif %}
+          </div>
         </div>
-
+      </div>
     </div>
+
+    </section>
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
